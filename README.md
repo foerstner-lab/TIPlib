@@ -1,5 +1,5 @@
 # TIP-lib
-TIP-library: code and everything else 
+TAKE IT PERSONALLY (TIP) - A Python library for data enrichment for infometrical applications
 
 ## Basic Idea:
 As every other social sphere, science is influenced by social structures. The Python library TIP is developed to improve the data foundation for scientiometric investigations Applying TIP will allow people to enrich publication data with information on the authors such as affiliation, gender or academic family background.
