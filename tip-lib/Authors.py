@@ -31,6 +31,7 @@ class Authors:
                  Values ?orcid {{ '{self.orcid}' }}. 
                  SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }} 
                  }}'''
+        print(query)
         q_results = self._get_wd_data(query)
         self.wd_id = q_results['results']['bindings'][0]['item']['value'].rsplit('/', 1)[1]
 
@@ -122,3 +123,9 @@ class Authors:
             Name: {self.name}\n
             Affiliation: {self.affiliation}\n
             parents: {self.parents}\n'''
+
+if __name__ == '__main__' :
+    Honja = Authors(wd_id='Q2395341')
+    print(Honja)
+    Alexopoulou = Authors(orcid='0000-0003-4619-697X')
+    print(Alexopoulou)
