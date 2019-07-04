@@ -1,5 +1,21 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+
+__author__=  'Eva Seidlmayer'
+__copyright__ = ''
+__credits__ = ['Eva Seidlmayer', 'Konrad U. Foerstner']
+__license__ = ''
+__version__ = '1.0'
+__maintainer__ = 'Eva Seidlmayer'
+__github__ = 'https://github.com/foerstner-lab/TIP-lib'
+__status__ = 'Production'
+__description__ = 'Extraction of information on institutions from Wikidata'
+
+
 from SPARQLWrapper import SPARQLWrapper, JSON
 
+user_agent = 'TakeItPersonally, https://github.com/foerstner-lab/TIP-lib'
 
 # new class
 class Authors:
@@ -11,9 +27,8 @@ class Authors:
         self.affiliation = None
         self.gender = None
         self.parents = None
-        self.url = SPARQLWrapper('https://query.wikidata.org/sparql')
-        #self.url.setMethod('GET')
-        #print(self.url.method)
+        self.url = SPARQLWrapper('https://query.wikidata.org/sparql', agent=user_agent)
+
 
         # identify authors via orcid, ISNI, wd-id  or doi of article:
         if wd_id is not None:

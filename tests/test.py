@@ -3,6 +3,9 @@ import pytest
 from tip import Authors
 from tip import Institution
 from tip import Journal
+import sys
+print(sys.path)
+sys.path.append('https://github.com/foerstner-lab/TIP-lib/tree/master/tip-lib')
 
 
 
@@ -58,7 +61,7 @@ def test_get_name(self):
 def test_get_orcid(self):
     result = _get_orcid(Authors('Q40466811'))
     assert type(result) == dict
-    assert result(['ORCID], Q40466811)
+    assert result(['ORCID'], Q40466811)
 
 
 def test_get_parents(self):
@@ -88,7 +91,7 @@ def test_get_publisher(self):
 def test_get_review_score(self):
     result = _get_review_score(Journal('Q180445'))
     assert type(result) == dict
-    assert type result(['Review_score'], int)
+    assert type(result(['Review_score'], int))
 
 
 def test_get_main_subject(self):
@@ -100,7 +103,7 @@ def test_get_main_subject(self):
 def test_get_type(self):
     result = _get_type(Institution('Q251061'))
     assert type(result) == dict
-    assert result(['Type'], 'research institute'')
+    assert result(['Type'], 'research institute')
 
 
 def test_get_students_count(self):

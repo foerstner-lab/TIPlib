@@ -1,4 +1,21 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+
+__author__=  'Eva Seidlmayer'
+__copyright__ = ''
+__credits__ = ['Eva Seidlmayer', 'Konrad U. Foerstner']
+__license__ = ''
+__version__ = '1.0'
+__maintainer__ = 'Eva Seidlmayer'
+__github__ = 'https://github.com/foerstner-lab/TIP-lib'
+__status__ = 'Production'
+__description__ = 'Extraction of information on institutions from Wikidata'
+
+
 from SPARQLWrapper import SPARQLWrapper, JSON
+
+user_agent = 'TakeItPersonally, https://github.com/foerstner-lab/TIP-lib'
 
 
 # new class Journal
@@ -15,7 +32,7 @@ class Journal:
         #self.open_licence = None
         #self.peer_reviewed = None
         #self.web_of_science = None
-        self.url = SPARQLWrapper('https://query.wikidata.org/sparql')
+        self.url = SPARQLWrapper('https://query.wikidata.org/sparql', agent=user_agent)
 
 # identify journal by wd_id or ISSN
 
