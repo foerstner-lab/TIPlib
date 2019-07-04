@@ -1,6 +1,8 @@
 from SPARQLWrapper import SPARQLWrapper, JSON
 import user_agent
 
+User-Agent: TakeItPersonally (https://github.com/foerstner-lab/TIP-lib; seidlmayer@zbmed.de)
+
 # new class Institution
 
 class Institution:
