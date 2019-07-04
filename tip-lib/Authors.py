@@ -14,6 +14,7 @@ class Authors:
         self.url = SPARQLWrapper('https://query.wikidata.org/sparql')
         #self.url.setMethod('GET')
         #print(self.url.method)
+
         # identify authors via orcid, ISNI, wd-id  or doi of article:
         if wd_id is not None:
             self._retrieve_features()
@@ -122,7 +123,7 @@ class Authors:
             Gender: {self.gender}\n
             Name: {self.name}\n
             Affiliation: {self.affiliation}\n
-            parents: {self.parents}\n'''
+            Parents: {self.parents}\n'''
 
 if __name__ == '__main__' :
     Alexopoulou = Authors(orcid='0000-0003-4619-697X')

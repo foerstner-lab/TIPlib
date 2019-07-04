@@ -1,4 +1,5 @@
 from SPARQLWrapper import SPARQLWrapper, JSON
+import user_agent
 
 # new class Institution
 
@@ -12,7 +13,7 @@ class Institution:
         self.type = None
         self.students_count = None
         self.tuition = None
-        self.url = SPARQLWrapper('https://query.wikidata.org/sparql')
+        self.url = SPARQLWrapper('https://query.wikidata.org/sparql', agent=user_agent)
 
 
 # identify institution via ISNI or wd_id; in fututre ROR 
@@ -106,10 +107,12 @@ class Institution:
 # set up str-function for class institution:    
     def __str__(self):
         return f'''Institution: {self.name}:\n
-            country: {self.country}\n
-            type: {self.type}\n
-            students_count: {self.students_count}\n
-            tuition: {self.tuition}\n'''
-    
-        
-        
+            Country: {self.country}\n
+            Type: {self.type}\n
+            Students_count: {self.students_count}\n
+            Tuition: {self.tuition}\n'''
+
+
+if __name__ == '__main__':
+    PotsdamInstitut = Institution('Q251061')
+    print(PotsdamInstitut)

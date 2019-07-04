@@ -106,10 +106,11 @@ class Journal:
 # set up str-function for class Journal:    
     def __str__(self):
         return f'''Journal: {self.name}:\n
-            country: {self.country_of_origin}\n
-            publisher: {self.publisher}\n
-            review_score: {self.review_score}\n
-            main_subject: {self.main_subject}\n'''
-    
-        
-        
+            Country: {self.country_of_origin}\n
+            Publisher: {self.publisher}\n
+            Review_score: {self.review_score}\n
+            Main_subject: {self.main_subject}\n'''
+
+if __name__ == '__main__':
+    Nature = Journal('Q180445')
+    print(Nature)
