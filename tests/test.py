@@ -1,12 +1,28 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+
+__author__=  'Eva Seidlmayer'
+__copyright__ = ''
+__credits__ = ['Eva Seidlmayer', 'Konrad U. Foerstner']
+__license__ = ''
+__version__ = '1.0'
+__maintainer__ = 'Eva Seidlmayer'
+__github__ = 'https://github.com/foerstner-lab/TIP-lib'
+__status__ = 'Production'
+__description__ = 'test of tip-library components'
+
 import pytest
 
-from tip import Authors
-from tip import Institution
-from tip import Journal
+from tip_lib import Authors
+from tip_lib import Institution
+from tip_lib import Journal
+
+'''
 import sys
 print(sys.path)
 sys.path.append('https://github.com/foerstner-lab/TIP-lib/tree/master/tip-lib')
-
+'''
 
 
 
