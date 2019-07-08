@@ -176,6 +176,7 @@ test_get_type()
 def test_get_students_count():
     obj = Institution('Q49108')
     result = obj.students_count
+    print(result)
     assert isinstance(obj, Institution)
     assert result == '11574'
 
@@ -185,9 +186,7 @@ test_get_students_count()
 
 def test_get_tuition():
     obj = Institution('Q151510')
-    print(obj)
     result = obj.tuition
-    print(result)
     assert isinstance(obj, Institution)
     assert result == '1,500'
 
@@ -195,8 +194,8 @@ def test_get_tuition():
 test_get_tuition()
 
 '''
-Honja = Authors(wd_id='Q2395341')
-print(Honja)
+        Honja = Authors(wd_id='Q2395341')
+        print(Honja)
         Heisenberg = Authors('Q40904')
         print(Heisenberg)
         Alexopoulou = Authors(orcid='0000-0003-4619-697X')
@@ -204,7 +203,7 @@ print(Honja)
         Hayek = Authors(isni='0000 0001 2117 8244')
         print(Hayek)
 
-        # instanciate an instance for class institution:
+ # instanciate an instance for class institution:
         PotsdamInstitut = Institution('Q251061')
         print(PotsdamInstitut)
         Sorbonne = Institution(isni='0000 0001 2165 487X')
@@ -215,9 +214,9 @@ print(Honja)
         print(MIT)
         SwissGermanUniversity = Institution(isni='0000 0004 0387 1442')
         print(SwissGermanUniversity)
+        Heidelberg university= Q151510
 
-        # instanciate an instance for class Journal:
-
+# instanciate an instance for class Journal:
         Nature = Journal('Q180445')
         print(Nature)
         JASIST = Journal(issn='1532-2882')

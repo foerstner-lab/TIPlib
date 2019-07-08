@@ -28,8 +28,8 @@ class Institution:
         self.name = None
         self.country = None
         self.type = None
-        self.students_count = None
         self.tuition = None
+        self.students_count = None
         self.url = SPARQLWrapper('https://query.wikidata.org/sparql', agent=user_agent)
 
 
@@ -102,24 +102,30 @@ class Institution:
 
 
     def _get_students_count(self):
+        singlenumber = []
         query = f'''SELECT ?studentscountLabel
                 WHERE {{ ?item wdt:P2196 ?studentscount .              
                 Values ?item {{ wd:{self.wd_id} }}. SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }} 
                 }}'''
-        print(query)
         q_results = self._get_wd_data(query)
-        if (len(q_results['results']['bindings']))>0:
-            self.students_count = q_results['results']['bindings'][0]['studentscountLabel']['value']
+        if (len(q_results['results']['bindings'])) > 0:
+            for res in q_results['results']['bindings']:
+                singlenumber.append(res['studentscountLabel']['value'])
+        self.students_count = singlenumber
+
+
+#        if (len(q_results['results']['bindings']))>0:
+ #           self.students_count = q_results['results']['bindings'][0]['studentscountLabel']['value']
+
 
     def _get_tuition(self):
         query = f'''SELECT ?tuitionLabel
                 WHERE {{ ?item wdt:P5894 ?tuition .              
                 Values ?item {{ wd:{self.wd_id} }}. SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }}
                 }}'''
-        print(query)
         q_results = self._get_wd_data(query)
         if (len(q_results['results']['bindings']))>0:
-            self.students_count = q_results['results']['bindings'][0]['tuitionLabel']['value']
+            self.tuition = q_results['results']['bindings'][0]['tuitionLabel']['value']
 
 
 
