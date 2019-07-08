@@ -106,6 +106,7 @@ class Institution:
                 WHERE {{ ?item wdt:P2196 ?studentscount .              
                 Values ?item {{ wd:{self.wd_id} }}. SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }} 
                 }}'''
+        print(query)
         q_results = self._get_wd_data(query)
         if (len(q_results['results']['bindings']))>0:
             self.students_count = q_results['results']['bindings'][0]['studentscountLabel']['value']
@@ -115,6 +116,7 @@ class Institution:
                 WHERE {{ ?item wdt:P5894 ?tuition .              
                 Values ?item {{ wd:{self.wd_id} }}. SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }}
                 }}'''
+        print(query)
         q_results = self._get_wd_data(query)
         if (len(q_results['results']['bindings']))>0:
             self.students_count = q_results['results']['bindings'][0]['tuitionLabel']['value']
@@ -132,5 +134,5 @@ class Institution:
 
 
 if __name__ == '__main__':
-    PotsdamInstitut = Institution('Q251061')
-    print(PotsdamInstitut)
+    Heidelberg = Institution(wd_id='Q151510')
+    print(Heidelberg)

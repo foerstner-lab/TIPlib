@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-__author__=  'Eva Seidlmayer'
+__author__ = 'Eva Seidlmayer'
 __copyright__ = ''
 __credits__ = ['Eva Seidlmayer', 'Konrad U. Foerstner']
 __license__ = ''
@@ -20,145 +20,179 @@ from tip_lib.Journal import Journal
 
 '''check the input to get wikidata_IDs'''
 
+
 def test_orcid_input():
     obj = Authors(orcid='0000-0003-4619-697X')
-    result = Authors._get_wd_id_by_orcid(obj)
-    print('result')
-    print(result)
-    assert isinstance(result, dict)
-    assert result['Wikidata-ID'] == 'Q40466811'
-test_orcid_input()
+    result = obj.wd_id
+    assert result == 'Q40466811'
+    assert isinstance(obj, Authors)
 
+
+test_orcid_input()
 
 
 def test_isni_input():
     obj_Authors = Authors(isni='0000 0001 2117 8244')
-    result_Authors= obj_Authors._get_wd_id_by_isni()
-    obj_Institution = obj_Institution(isni='0000 0001 2165 487X')
-    result_Institution = obj_Institution._get_wd_id_by_isni()
-    assert type(result_Authors) == dict
-    assert result_Authors == result_Authors(['Wikidata-ID'], 'Q1325')
-    assert type(result_Institution) == dict
-    assert result_Institution == result_Institution(['Wikidata-ID'], '546118')
+    result_Authors = obj_Authors.wd_id
+    assert isinstance(obj_Authors, Authors)
+    assert result_Authors == 'Q1325'
+
+    obj_Institution = Institution(isni='0000 0001 2165 487X')
+    result_Institution = obj_Institution.wd_id
+    assert isinstance(obj_Institution, Institution)
+    assert result_Institution == 'Q546118'
+
+
 test_isni_input()
+
 
 def test_issn_input():
     obj = Journal(issn='1532-2882')
-    result = obj._get_wd_id_by_issn()
-    assert type(result) == dict
-    assert result == result(['Wikidata-ID'], 'Q152040')
+    result = obj.wd_id
+    assert isinstance(obj, Journal)
+    assert result == 'Q152040'
+
+
 test_issn_input()
-
-
 
 '''check the retrieval of features'''
 
+
 def test_get_gender():
-    obj = Authors('Q40904')
-    result = obj._get_gender()
-    assert type (result) == dict
-    assert result == result(['Gender'], 'male')
+    obj = Authors(wd_id='Q40904')
+    result = obj.gender
+    assert isinstance(obj, Authors)
+    assert result == 'male'
+    assert isinstance(result, str)
+
+
 test_get_gender()
+
 
 def test_get_affiliation():
     obj = Authors('Q2395341')
-    result = obj._get_affiliation()
-    assert type (result) == dict
-    assert result == result(['Affiliation'], ['University of Tokyo', 'Kyoto University', 'Osaka University', 'Hirosaki University'])
+    result = obj.affiliation
+    assert isinstance(obj, Authors)
+    assert result == ['University of Tokyo', 'Osaka University', 'Hirosaki University', 'Kyoto University']
+
+
 test_get_affiliation()
+
 
 def test_get_name():
     obj_Authors = Authors('Q2395341')
     obj_Journal = Journal('Q180445')
-    result_Authors = obj_Authors._get_name()
-    result_Journal = obj_Journal._get_name()
-    assert type(result_Authors) == dict
-    assert result_Authors(['Name'], 'Tasuku Honjo')
-    assert type(result_Journal) == dict
-    assert result_Journal(['Name'], 'Nature')
+    result_Authors = obj_Authors.name
+    result_Journal = obj_Journal.name
+    assert isinstance(obj_Authors, Authors)
+    assert result_Authors == 'Tasuku Honjo'
+    assert isinstance(obj_Journal, Journal)
+    assert result_Journal == 'Nature'
+
+
 test_get_name()
+
 
 def test_get_orcid():
     obj = Authors('Q40466811')
-    result = obj._get_orcid()
-    assert type(result) == dict
-    assert result(['ORCID'], 'Q40466811')
+    result = obj.orcid
+    assert isinstance(obj, Authors)
+    assert result == '0000-0003-4619-697X'
+
+
 test_get_orcid()
+
 
 def test_get_parents():
     obj = Authors('Q40904')
-    result = obj._get_parents()
-    assert type(result) == dict
-    assert result(['Parents'], ['August Heisenberg', 'Annie Heisenberg'])
+    result = obj.parents
+    assert isinstance(obj, Authors)
+    assert result == ['August Heisenberg', 'Q72885', 'Annie Heisenberg', 'Q27908660']
+
+
 test_get_parents()
+
 
 def test_get_country():
     obj = Institution('Q251061')
-    result = obj._get_country()
-    assert type(result) == dict
-    assert result(['Country'], 'Germany')
+    result = obj.country
+    assert isinstance(obj, Institution)
+    assert result == 'Germany'
+
+
 test_get_country()
+
 
 def test_get_country_of_origin():
     obj = Journal('Q180445')
-    result = obj._get_country_of_origin()
-    assert type(result) == dict
-    assert result(['Country'], 'United Kingdom')
+    result = obj.country_of_origin
+    assert isinstance(obj, Journal)
+    assert result == 'United Kingdom'
+
+
 test_get_country_of_origin()
+
 
 def test_get_publisher():
     obj = Journal('Q180445')
-    result = obj._get_publisher()
-    assert type(result) == dict
-    assert result(['Publisher'], 'Nature Publishing Group')
+    result = obj.publisher
+    assert isinstance(obj, Journal)
+    assert result == 'Nature Publishing Group'
+
+
 test_get_publisher()
+
 
 def test_get_review_score():
     obj = Journal('Q180445')
-    result = obj._get_review_score()
-    assert type(result) == dict
-    assert type(result(['Review_score'], int))
+    result = obj.review_score
+    assert isinstance(obj, Journal)
+    assert isinstance(result, str)
+
+
 test_get_review_score()
+
 
 def test_get_main_subject():
     obj = Journal('Q180445')
-    result = obj._get_main_subject()
-    assert type(result) == dict
-    assert result(['Main subjecct'], 'science')
+    result = obj.main_subject
+    assert isinstance(obj, Journal)
+    assert result == 'science'
+
+
 test_get_main_subject()
+
 
 def test_get_type():
     obj = Institution('Q251061')
-    result = obj._get_type()
-    assert type(result) == dict
-    assert result(['Type'], 'research institute')
+    result = obj.type
+    assert isinstance(obj, Institution)
+    assert result == 'research institute'
+
+
 test_get_type()
 
+
 def test_get_students_count():
-    obj = Institution('Q251061')
-    result = obj._get_students_count()
-    assert type(result) == dict
-    assert result(['Students count'], '11574')
+    obj = Institution('Q49108')
+    result = obj.students_count
+    assert isinstance(obj, Institution)
+    assert result == '11574'
+
+
 test_get_students_count()
 
+
 def test_get_tuition():
-    obj = Institution('Q251061')
-    result = obj._get_tuition()
-    assert type(result) == dict
-    assert result(['Tuition'], ['54,000,000 Indonesian Rupiah', '19,500,000 Indonesian Rupiah'])
+    obj = Institution('Q151510')
+    print(obj)
+    result = obj.tuition
+    print(result)
+    assert isinstance(obj, Institution)
+    assert result == '1,500'
+
+
 test_get_tuition()
-
-
-
-
-
-
-
-
-
-
-
-
 
 '''
 Honja = Authors(wd_id='Q2395341')
