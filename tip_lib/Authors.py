@@ -2,20 +2,20 @@
 # -*- coding: utf-8 -*-
 
 
-__author__=  'Eva Seidlmayer'
-__copyright__ = ''
-__credits__ = ['Eva Seidlmayer', 'Konrad U. Foerstner']
-__license__ = ''
-__version__ = '1.0'
-__maintainer__ = 'Eva Seidlmayer'
-__github__ = 'https://github.com/foerstner-lab/TIP-lib'
-__status__ = 'Production'
-__description__ = 'Extraction of information on scientific authors from Wikidata'
+__author__ = "Eva Seidlmayer"
+__copyright__ = ""
+__credits__ = ["Eva Seidlmayer", "Konrad U. Foerstner"]
+__license__ = ""
+__version__ = "1.0"
+__maintainer__ = "Eva Seidlmayer"
+__github__ = "https://github.com/foerstner-lab/TIP-lib"
+__status__ = "Production"
+__description__ = "Extraction of information on scientific authors from Wikidata"
 
 
 from SPARQLWrapper import SPARQLWrapper, JSON
 
-user_agent = 'TakeItPersonally, https://github.com/foerstner-lab/TIP-lib'
+user_agent = "TakeItPersonally, https://github.com/foerstner-lab/TIP-lib"
 
 # new class
 class Authors:
@@ -27,8 +27,7 @@ class Authors:
         self.affiliation = None
         self.gender = None
         self.parents = None
-        self.url = SPARQLWrapper('https://query.wikidata.org/sparql', agent=user_agent)
-
+        self.url = SPARQLWrapper("https://query.wikidata.org/sparql", agent=user_agent)
 
         # identify authors via orcid, ISNI, wd-id  or doi of article:
         if wd_id is not None:
@@ -40,27 +39,32 @@ class Authors:
             self._get_wd_id_by_orcid()
             self._retrieve_features()
         else:
-            print('Please insert DOI, ORCID, ISNI or Wikidata-ID to retrieve information on Authors of a paper.')
+            print(
+                "Please insert DOI, ORCID, ISNI or Wikidata-ID to retrieve information on Authors of a paper."
+            )
 
     def _get_wd_id_by_orcid(self):
-        query = f'''SELECT distinct ?item
+        query = f"""SELECT distinct ?item
                  WHERE {{ ?item wdt:P496 ?orcid .    
                  Values ?orcid {{ '{self.orcid}' }}. 
                  SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }} 
-                 }}'''
+                 }}"""
         q_results = self._get_wd_data(query)
-        self.wd_id = q_results['results']['bindings'][0]['item']['value'].rsplit('/', 1)[1]
+        self.wd_id = q_results["results"]["bindings"][0]["item"]["value"].rsplit(
+            "/", 1
+        )[1]
 
     def _get_wd_id_by_isni(self):
-        query = f'''SELECT distinct ?item
+        query = f"""SELECT distinct ?item
                  WHERE {{ ?item wdt:P213 ?isni .    
                  Values ?isni {{ '{self.isni}' }}. 
                  SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }}
-                 }}'''
+                 }}"""
         q_results = self._get_wd_data(query)
-        if (len(q_results['results']['bindings'])) > 0:
-            self.wd_id = q_results['results']['bindings'][0]['item']['value'].rsplit('/', 1)[1]
-
+        if (len(q_results["results"]["bindings"])) > 0:
+            self.wd_id = q_results["results"]["bindings"][0]["item"]["value"].rsplit(
+                "/", 1
+            )[1]
 
     # get wikidata features about authors applying wikidata-id:
     def _retrieve_features(self):
@@ -79,67 +83,67 @@ class Authors:
 
     # get features on authors (gender, employer, names, parents):
     def _get_gender(self):
-        query = f'''SELECT ?genderLabel   
+        query = f"""SELECT ?genderLabel   
                 WHERE {{ VALUES ?item {{ wd:{self.wd_id} }}.  
                     ?item wdt:P21 ?gender .
                 SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }} 
-                }}'''
+                }}"""
         q_results = self._get_wd_data(query)
-        self.gender = q_results['results']['bindings'][0]['genderLabel']['value']
+        self.gender = q_results["results"]["bindings"][0]["genderLabel"]["value"]
 
     def _get_affiliation(self):
         singleemployer = []
-        query = f'''SELECT distinct ?employerLabel   
+        query = f"""SELECT distinct ?employerLabel   
                 WHERE {{ VALUES ?item {{ wd:{self.wd_id} }}.    
                     ?item wdt:P108 ?employer .
                 SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }} 
-                }}'''
+                }}"""
         q_results = self._get_wd_data(query)
-        for res in q_results['results']['bindings']:
-            singleemployer.append(res['employerLabel']['value'])
+        for res in q_results["results"]["bindings"]:
+            singleemployer.append(res["employerLabel"]["value"])
         self.affiliation = singleemployer
 
     def _get_name(self):
-        query = f'''SELECT ?itemLabel
+        query = f"""SELECT ?itemLabel
                 WHERE {{ VALUES ?item {{ wd:{self.wd_id} }}. 
                 SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }} 
-                }}'''
+                }}"""
         q_results = self._get_wd_data(query)
-        self.name = q_results['results']['bindings'][0]['itemLabel']['value']
+        self.name = q_results["results"]["bindings"][0]["itemLabel"]["value"]
 
     def _get_orcid(self):
-        query = f'''SELECT distinct ?orcid
+        query = f"""SELECT distinct ?orcid
                 WHERE {{ ?item wdt:P496 ?orcid .              
                  Values ?item {{ wd:{self.wd_id} }}. SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }} 
-                }}'''
+                }}"""
         q_results = self._get_wd_data(query)
-        if (len(q_results['results']['bindings'])) > 0:
-            self.orcid = q_results['results']['bindings'][0]['orcid']['value']
+        if (len(q_results["results"]["bindings"])) > 0:
+            self.orcid = q_results["results"]["bindings"][0]["orcid"]["value"]
 
     def _get_parents(self):
         singleparent = []
-        query = f'''SELECT distinct ?parents ?parentsLabel
+        query = f"""SELECT distinct ?parents ?parentsLabel
                 WHERE {{  ?parents wdt:P40 ?item .
                 Values ?item {{ wd:{self.wd_id} }}. SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }} 
-                }}'''
+                }}"""
         q_results = self._get_wd_data(query)
-        if (len(q_results['results']['bindings'])) > 0:
-            for res in q_results['results']['bindings']:
-                singleparent.append(res['parentsLabel']['value'])
-                singleparent.append(res['parents']['value'].rsplit('/', 1)[1])
+        if (len(q_results["results"]["bindings"])) > 0:
+            for res in q_results["results"]["bindings"]:
+                singleparent.append(res["parentsLabel"]["value"])
+                singleparent.append(res["parents"]["value"].rsplit("/", 1)[1])
             self.parents = singleparent
-
 
     # set up str-function for class author:
     def __str__(self):
-        return f'''Author: {self.name}:\n
+        return f"""Author: {self.name}:\n
             Wikidata-ID: {self.wd_id}\n
             ORCID: {self.orcid}\n
             Gender: {self.gender}\n
             Name: {self.name}\n
             Affiliation: {self.affiliation}\n
-            Parents: {self.parents}\n'''
+            Parents: {self.parents}\n"""
 
-if __name__ == '__main__' :
-    Alexopoulou = Authors(orcid='0000-0003-4619-697X')
+
+if __name__ == "__main__":
+    Alexopoulou = Authors(orcid="0000-0003-4619-697X")
     print(Alexopoulou)
