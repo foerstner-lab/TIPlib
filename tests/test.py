@@ -14,9 +14,9 @@ __description__ = 'test of tip-library components'
 
 import pytest
 
-from tip_lib.Authors import Authors
-from tip_lib.Institution import Institution
-from tip_lib.Journal import Journal
+from tip_lib.author import authors
+from tip_lib.institution import institution
+from tip_lib.journal import journal
 
 '''check the input to get wikidata_IDs'''
 
