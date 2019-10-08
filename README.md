@@ -1,4 +1,4 @@
-# TIP-lib
+# TIPlib
 TAKE IT PERSONALLY (TIP) - A Python library for data enrichment for infometrical applications
 
 ## Basic Idea:
