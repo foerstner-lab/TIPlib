@@ -18,7 +18,7 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 user_agent = "TakeItPersonally, https://github.com/foerstner-lab/TIP-lib"
 
 # new class
-class Authors:
+class Author:
     def __init__(self, wd_id=None, orcid=None, isni=None):
         self.wd_id = wd_id
         self.orcid = orcid
@@ -145,5 +145,5 @@ class Authors:
 
 
 if __name__ == "__main__":
-    Alexopoulou = Authors(orcid="0000-0003-4619-697X")
+    Alexopoulou = Author(orcid="0000-0003-4619-697X")
     print(Alexopoulou)
