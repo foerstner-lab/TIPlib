@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-
 __author__ = "Eva Seidlmayer"
 __copyright__ = ""
 __credits__ = ["Eva Seidlmayer", "Konrad U. Foerstner"]
@@ -96,17 +95,21 @@ class article:
             pass
 
     def _get_doi_by_pmid(self):
+        doi = []
         query= f''' SELECT distinct ?doi
-                     WHERE {{ ?item wdt:698 ?pmid .    
-                     Values ?pmid {{ '{self.pmid}' }}. 
-                     {{ ?item wdt:356 ?doi }}. 
-                     SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }}
-                     }}'''
-        print(query)
+                    WHERE {{ 
+                    ?item wdt:P698 ?pmid .    
+                    Values (?pmid) {{("{self.pmid}")}}.
+                    ?item wdt:P356 ?doi.
+                    SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }}
+                    }}'''
+        #print(query)
         results = self._get_wd_data(query)
-        print(results)
-        if(len(results['head']['vars'])) > 0:
-           self.doi = results ['head']['vars'][0]['doi']['value']
+        #print(results)
+        if(len(results['results']['bindings'])) > 0:
+            for res in results['results']['bindings']: \
+                doi.append(res['doi']['value'])
+            self.doi = doi
 
         else:
             pass
@@ -122,11 +125,11 @@ class article:
 
 
 if __name__ == "__main__":
-    some_article = article(doi='10.1002/14651858.CD002020.PUB2')
+    some_article = article(doi='10.1002/14651858.CD002020.PUB3')
     print(some_article)
 
-    other_article = article(doi='10.3201/eid2308.162039')
+    other_article = article(doi='10.1128/GENOMEA.01316-16')
     print(other_article)
 
-    one_more_article = article(pmid='28726616')
+    one_more_article = article(pmid='22238442')
     print(one_more_article)
