@@ -16,4 +16,4 @@ By providing identifiers (e.g. DOI or ORCID) information can be retrieved via TI
 
 # Paper
 Seidlmayer, E., Galke, L., Melnychuk, T., Schultz, C., Tochtermann, K., Forstner, K.U., 2019. Take it Personally - A Python library for data enrichment in informetrical applications, in: Posters and Demos at SEMANTiCS 2019. Presented at the Semantics 2019, Alam, Mehwish; Usbeck, Ricardo;  Pellegrini,  Tassilo;  Sack, Harald; Sure-Vetter, York, Karlsruhe, p. 5.
-http://ceur-ws.org/Vol-2451/paper-23.pdf 
+http://ceur-ws.org/Vol-2451/paper-23.pdf
