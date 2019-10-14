@@ -14,28 +14,54 @@ __description__ = 'test of tip-library components'
 
 import pytest
 
-from tip_lib.author import authors
-from tip_lib.institution import institution
-from tip_lib.journal import journal
+from tiplib.author import author
+from tiplib.institution import institution
+from tiplib.journal import journal
+from tiplib.article import article
+
+
+''' check the class article to retrieve wikidata-identifier from dois and pubmed-id ('pmid') '''
+
+def test_get_wd_id_by_doi():
+    obj_Article(doi='10.1128/GENOMEA.01316-16')
+    result = obj.wd_id
+    assert result == 'Q41785958'
+    assert isinstance(obj, Article)
+
+test_get_wd_id_by_doi()
+
+
+def test_get_wd_id_by_pmid():
+    obj_Article(pmid='22238442')
+    result = obj.wd_id
+    assert result == 'Q24605958'
+    assert isinstance(obj, Article)
+
+test_get_wd_id_by_pmid()
+
+
+
+
+
 
 '''check the input to get wikidata_IDs'''
 
 
 def test_orcid_input():
-    obj = Authors(orcid='0000-0003-4619-697X')
+    obj = Author(orcid='0000-0003-4619-697X')
     result = obj.wd_id
     assert result == 'Q40466811'
-    assert isinstance(obj, Authors)
+    assert isinstance(obj, Author)
 
 
 test_orcid_input()
 
 
 def test_isni_input():
-    obj_Authors = Authors(isni='0000 0001 2117 8244')
-    result_Authors = obj_Authors.wd_id
-    assert isinstance(obj_Authors, Authors)
-    assert result_Authors == 'Q1325'
+    obj_Author = Author(isni='0000 0001 2117 8244')
+    result_Author = obj_Author.wd_id
+    assert isinstance(obj_Author, Author)
+    assert result_Author == 'Q1325'
 
     obj_Institution = Institution(isni='0000 0001 2165 487X')
     result_Institution = obj_Institution.wd_id
@@ -59,9 +85,9 @@ test_issn_input()
 
 
 def test_get_gender():
-    obj = Authors(wd_id='Q40904')
+    obj = Author(wd_id='Q40904')
     result = obj.gender
-    assert isinstance(obj, Authors)
+    assert isinstance(obj, Author)
     assert result == 'male'
     assert isinstance(result, str)
 
@@ -70,9 +96,9 @@ test_get_gender()
 
 
 def test_get_affiliation():
-    obj = Authors('Q2395341')
+    obj = Author('Q2395341')
     result = obj.affiliation
-    assert isinstance(obj, Authors)
+    assert isinstance(obj, Author)
     assert result == ['University of Tokyo', 'Osaka University', 'Hirosaki University', 'Kyoto University']
 
 
@@ -80,12 +106,12 @@ test_get_affiliation()
 
 
 def test_get_name():
-    obj_Authors = Authors('Q2395341')
+    obj_Author = Author('Q2395341')
     obj_Journal = Journal('Q180445')
-    result_Authors = obj_Authors.name
+    result_Author = obj_Author.name
     result_Journal = obj_Journal.name
-    assert isinstance(obj_Authors, Authors)
-    assert result_Authors == 'Tasuku Honjo'
+    assert isinstance(obj_Author, Author)
+    assert result_Author == 'Tasuku Honjo'
     assert isinstance(obj_Journal, Journal)
     assert result_Journal == 'Nature'
 
@@ -94,9 +120,9 @@ test_get_name()
 
 
 def test_get_orcid():
-    obj = Authors('Q40466811')
+    obj = Author('Q40466811')
     result = obj.orcid
-    assert isinstance(obj, Authors)
+    assert isinstance(obj, Author)
     assert result == '0000-0003-4619-697X'
 
 
@@ -104,9 +130,9 @@ test_get_orcid()
 
 
 def test_get_parents():
-    obj = Authors('Q40904')
+    obj = Author('Q40904')
     result = obj.parents
-    assert isinstance(obj, Authors)
+    assert isinstance(obj, Author)
     assert result == ['August Heisenberg', 'Q72885', 'Annie Heisenberg', 'Q27908660']
 
 
@@ -194,13 +220,13 @@ def test_get_tuition():
 test_get_tuition()
 
 '''
-        Honja = Authors(wd_id='Q2395341')
+        Honja = Author(wd_id='Q2395341')
         print(Honja)
-        Heisenberg = Authors('Q40904')
+        Heisenberg = Author('Q40904')
         print(Heisenberg)
-        Alexopoulou = Authors(orcid='0000-0003-4619-697X')
+        Alexopoulou = Author(orcid='0000-0003-4619-697X')
         print(Alexopoulou)
-        Hayek = Authors(isni='0000 0001 2117 8244')
+        Hayek = Author(isni='0000 0001 2117 8244')
         print(Hayek)
 
  # instanciate an instance for class institution:
