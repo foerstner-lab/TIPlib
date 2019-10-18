@@ -49,10 +49,11 @@ class Author:
                  Values ?orcid {{ '{self.orcid}' }}. 
                  SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }} 
                  }}"""
-        #print(query)
+        # print(query)
         q_results = self._get_wd_data(query)
         self.wd_id = q_results["results"]["bindings"][0]["item"]["value"].rsplit(
-            "/", 1 )[1]
+            "/", 1
+        )[1]
 
     def _get_wd_id_by_isni(self):
         query = f"""SELECT distinct ?item
