@@ -85,12 +85,13 @@ class Author:
     # get features on authors (gender, employer, names, parents):
     def _get_gender(self):
         query = f"""SELECT ?genderLabel   
-                WHERE {{ VALUES ?item {{ wd:{self.wd_id} }}.  
-                    ?item wdt:P21 ?gender .
-                SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }} 
-                }}"""
+                   WHERE {{ VALUES ?item {{ wd:{self.wd_id} }}.  
+                       ?item wdt:P21 ?gender .
+                   SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }} 
+                   }}"""
         q_results = self._get_wd_data(query)
-        self.gender = q_results["results"]["bindings"][0]["genderLabel"]["value"]
+        if (len(q_results["results"]["bindings"])) > 0:
+            self.gender = q_results["results"]["bindings"][0]["genderLabel"]["value"]
 
     def _get_affiliation(self):
         singleemployer = []
