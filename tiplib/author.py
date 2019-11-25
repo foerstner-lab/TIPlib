@@ -101,9 +101,11 @@ class Author:
                 SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }} 
                 }}"""
         q_results = self._get_wd_data(query)
-        for res in q_results["results"]["bindings"]:
-            singleemployer.append(res["employerLabel"]["value"])
-        self.affiliation = singleemployer
+        if (len(q_results["results"]["bindings"])) > 0:
+            for res in q_results["results"]["bindings"]:
+                singleemployer.append(res["employerLabel"]["value"])
+                singleemployer.append(res["employer"]["value"].rsplit("/", 1)[1])
+            self.affiliation = singleemployer
 
     def _get_name(self):
         query = f"""SELECT ?itemLabel
