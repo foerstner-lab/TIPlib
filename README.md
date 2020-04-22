@@ -9,9 +9,9 @@ By providing identifiers (e.g. DOI or ORCID) information can be retrieved via TI
 * Three classes are provided: authors, journals and institutions
 * So far, the enrichment can be performed using DOI, ORCID, ISNI, VIAF, ISSN
 * Attributes that can be sought:
-** Authors: identifiers, gender, affiliations history, parents
-** Institution: country, type, students_count, tuition
-** Journals: country of origin, publisher, review score, main subject
+  * Authors: identifiers, gender, affiliations history, parents
+  * Institution: country, type, students_count, tuition
+  * Journals: country of origin, publisher, review score, main subject
 * Data hub for information is currently Wikidata
 
 # Paper
